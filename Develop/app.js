@@ -18,21 +18,7 @@ let inquiry = true;
 
 async function main() {
     prompts();
-    // while (inquiry === true) {
-    //     inquirer.prompt([
-    //         {
-    //             type: "list",
-    //             name: "finish",
-    //             message: "Do you want to add more employees? ",
-    //             choices: ["Yes", "No"]
-    //         }
-    //     ]).then((data) => {
-    //         console.log(data);
-    //         // if (data.finish === "No") {
-    //         //     inquiry = false;
-    //         // }
-    //     })
-    };
+}
 
 async function prompts() {
     console.clear();
@@ -79,8 +65,8 @@ async function promptRole(role) {
             }
     ]).then((data) => {
         teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        team.push(teamObject)
-        console.log(team)
+        team.push(teamObject);
+        continueAdd();
 
     })};
     if (role === "Engineer") {
@@ -92,8 +78,8 @@ async function promptRole(role) {
             }
     ]).then((data) => {
         teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        team.push(teamObject)
-        console.log(team)
+        team.push(teamObject);
+        continueAdd();
 
     })};
     if (role === "Intern") {
@@ -105,10 +91,29 @@ async function promptRole(role) {
             }
     ]).then((data) => {
         teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        team.push(teamObject)
-        console.log(team)
+        team.push(teamObject);
+        continueAdd();
+
     })
     }
+}
+
+
+async function continueAdd() {
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "finish",
+            message: "Do you want to add more employees? ",
+            choices: ["Yes", "No"]
+        }
+    ]).then((data) => {
+        if (data.finish === "Yes") {
+            prompts();
+        } else {
+            console.log(team);
+        }
+    })
 }
 
 main();
