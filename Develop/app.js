@@ -1,3 +1,5 @@
+"use strict";
+
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -10,6 +12,85 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+let teamObject = {};
+
+async function main() {
+prompts();
+}
+
+async function prompts() {
+    console.clear();
+    console.log("======================================================================");
+    inquirer.prompt([
+        {
+            type:"input",
+            name:"name",
+            message:"Please enter the employee's name: "    
+        },
+        {
+            type:"input",
+            name:"id",
+            message:"Please enter the employee's ID: "    
+        },
+        {
+            type:"input",
+            name:"email",
+            message:"Please enter the employee's Email: "    
+        },
+        {
+            type:"list",
+            name:"role",
+            message:"Please select the employee's role: ",
+            choices: ["Manager", "Engineer", "Intern"],   
+        },
+    ]).then((data) => {
+        for (let i=0; i<Object.keys("data").length; i++) {
+            teamObject[Object.keys(data)[i]] = Object.values(data)[i];
+        }
+        console.log(teamObject)
+        promptRole(data.role);
+    });
+    
+}
+
+async function promptRole(role) {
+    if (role === "Manager") {
+        inquirer.prompt([
+            {
+                type:"input",
+                name:"officeNumber",
+                message:"What is your office number? "
+            }
+    ]).then((data) => {
+        teamObject[Object.keys(data)[0]] = Object.values(data)[0];
+        console.log(teamObject)
+    })};
+    if (role === "Engineer") {
+        inquirer.prompt([
+            {
+                type:"input",
+                name:"github",
+                message:"What is your Github? "
+            }
+    ]).then((data) => {
+        teamObject[Object.keys(data)[0]] = Object.values(data)[0];
+        console.log(teamObject)
+    })};
+    if (role === "Intern") {
+        inquirer.prompt([
+            {
+                type:"input",
+                name:"school",
+                message:"What school is the employee atttending? "
+            }
+    ]).then((data) => {
+        teamObject[Object.keys(data)[0]] = Object.values(data)[0];
+        console.log(teamObject)
+    })
+    }
+}
+
+main();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -24,7 +105,7 @@ const render = require("./lib/htmlRenderer");
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
+// HINT: each employee type (`manager, engineer, or intern) has slightly different
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
 
