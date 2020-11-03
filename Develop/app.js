@@ -12,11 +12,27 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+let team = [];
 let teamObject = {};
+let inquiry = true;
 
 async function main() {
-prompts();
-}
+    prompts();
+    // while (inquiry === true) {
+    //     inquirer.prompt([
+    //         {
+    //             type: "list",
+    //             name: "finish",
+    //             message: "Do you want to add more employees? ",
+    //             choices: ["Yes", "No"]
+    //         }
+    //     ]).then((data) => {
+    //         console.log(data);
+    //         // if (data.finish === "No") {
+    //         //     inquiry = false;
+    //         // }
+    //     })
+    };
 
 async function prompts() {
     console.clear();
@@ -63,7 +79,9 @@ async function promptRole(role) {
             }
     ]).then((data) => {
         teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        console.log(teamObject)
+        team.push(teamObject)
+        console.log(team)
+
     })};
     if (role === "Engineer") {
         inquirer.prompt([
@@ -74,7 +92,9 @@ async function promptRole(role) {
             }
     ]).then((data) => {
         teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        console.log(teamObject)
+        team.push(teamObject)
+        console.log(team)
+
     })};
     if (role === "Intern") {
         inquirer.prompt([
@@ -85,7 +105,8 @@ async function promptRole(role) {
             }
     ]).then((data) => {
         teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        console.log(teamObject)
+        team.push(teamObject)
+        console.log(team)
     })
     }
 }
