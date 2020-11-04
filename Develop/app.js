@@ -46,16 +46,19 @@ async function prompts() {
             choices: ["Manager", "Engineer", "Intern"],   
         },
     ]).then((data) => {
-        for (let i=0; i<Object.keys("data").length; i++) {
-            teamObject[Object.keys(data)[i]] = Object.values(data)[i];
-        }
-        console.log(teamObject)
-        promptRole(data.role);
+
+        // console.log(data);
+        // for (let i=0; i<Object.keys("data").length; i++) {
+        //     teamObject[Object.keys(data)[i]] = Object.values(data)[i];
+        //     console.log(team);
+        // };
+        promptRole(data);
     });
     
 }
 
-async function promptRole(role) {
+async function promptRole(datas) {
+    const {role} = datas;
     if (role === "Manager") {
         inquirer.prompt([
             {
@@ -64,8 +67,10 @@ async function promptRole(role) {
                 message:"What is your office number? "
             }
     ]).then((data) => {
-        teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        team.push(teamObject);
+        // teamObject[Object.keys(data)[0]] = Object.values(data)[0];
+        const tempData = datas;
+        tempData["officeNumber"] = data.officeNumber;
+        team.push(tempData);
         continueAdd();
 
     })};
@@ -77,8 +82,10 @@ async function promptRole(role) {
                 message:"What is your Github? "
             }
     ]).then((data) => {
-        teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        team.push(teamObject);
+        // teamObject[Object.keys(data)[0]] = Object.values(data)[0];
+        const tempData = datas;
+        tempData["github"] = data.github;
+        team.push(tempData);
         continueAdd();
 
     })};
@@ -90,8 +97,10 @@ async function promptRole(role) {
                 message:"What school is the employee atttending? "
             }
     ]).then((data) => {
-        teamObject[Object.keys(data)[0]] = Object.values(data)[0];
-        team.push(teamObject);
+        // teamObject[Object.keys(data)[0]] = Object.values(data)[0];
+        const tempData = datas;
+        tempData["school"] = data.school;
+        team.push(tempData);
         continueAdd();
 
     })
