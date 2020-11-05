@@ -13,8 +13,6 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 let team = [];
-let teamObject = {};
-let inquiry = true;
 
 async function main() {
     prompts();
@@ -46,12 +44,6 @@ async function prompts() {
             choices: ["Manager", "Engineer", "Intern"],   
         },
     ]).then((data) => {
-
-        // console.log(data);
-        // for (let i=0; i<Object.keys("data").length; i++) {
-        //     teamObject[Object.keys(data)[i]] = Object.values(data)[i];
-        //     console.log(team);
-        // };
         promptRole(data);
     });
     
@@ -67,10 +59,12 @@ async function promptRole(datas) {
                 message:"What is your office number? "
             }
     ]).then((data) => {
-        // teamObject[Object.keys(data)[0]] = Object.values(data)[0];
         const tempData = datas;
         tempData["officeNumber"] = data.officeNumber;
-        team.push(tempData);
+
+        const manager = new Manager(Object.values(tempData)[0], Object.values(tempData)[1], Object.values(tempData)[2], Object.values(tempData)[4]);
+        
+        team.push(manager);
         continueAdd();
 
     })};
@@ -82,10 +76,12 @@ async function promptRole(datas) {
                 message:"What is your Github? "
             }
     ]).then((data) => {
-        // teamObject[Object.keys(data)[0]] = Object.values(data)[0];
         const tempData = datas;
         tempData["github"] = data.github;
-        team.push(tempData);
+
+        const emgineer = new Engineer(Object.values(tempData)[0], Object.values(tempData)[1], Object.values(tempData)[2], Object.values(tempData)[4]);
+
+        team.push(emgineer);
         continueAdd();
 
     })};
@@ -97,15 +93,17 @@ async function promptRole(datas) {
                 message:"What school is the employee atttending? "
             }
     ]).then((data) => {
-        // teamObject[Object.keys(data)[0]] = Object.values(data)[0];
         const tempData = datas;
         tempData["school"] = data.school;
-        team.push(tempData);
+        
+        const intern = new Intern(Object.values(tempData)[0], Object.values(tempData)[1], Object.values(tempData)[2], Object.values(tempData)[4]);
+
+        team.push(intern);
         continueAdd();
 
-    })
-    }
-}
+    });
+    };
+};
 
 
 async function continueAdd() {
@@ -120,12 +118,16 @@ async function continueAdd() {
         if (data.finish === "Yes") {
             prompts();
         } else {
-            console.log(team);
+            // console.log(render(team));
+            fs.writeFileSync(outputPath, render(team));
+            // teamHtml = fs.readFileSync(OUTPUT_DIR, render(team));
+            // console.log(teamHtml)
         }
     })
 }
 
 main();
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)

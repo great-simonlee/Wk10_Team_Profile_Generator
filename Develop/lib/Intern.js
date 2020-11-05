@@ -7,6 +7,7 @@ class Intern extends Employee {
         this.school = school;
         this.title = "Intern"
     }
+
     getSchool() {
         return this.school;
     }
