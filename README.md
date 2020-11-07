@@ -26,7 +26,7 @@ This project is to build a software engineering team generator command line appl
 
 ## Demo
 
-![Portfolio Demo](https://github.com/great-simonlee/Wk9_README_Generator/blob/main/Develop/README%20Generator.gif)
+![Portfolio Demo](https://github.com/great-simonlee/Wk10_Team_Profile_Generator/blob/main/Team%20Profile%20Generator.gif)
 
 ## Features
 
